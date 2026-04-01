@@ -4,7 +4,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -g
 
 # Luật biên dịch tự động cho mọi file .c
-%: %.c
+%: %src/.c
 	$(CC) $(CFLAGS) $< -o $@
 
 clean:
