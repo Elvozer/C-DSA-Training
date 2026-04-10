@@ -61,14 +61,19 @@ char *reverseWords(char *s){
     fir2++;
         }
     }
-    return s;
+    int size = strlen(s), cou = size;
+    char *res = (char*)malloc(size*sizeof(char));
+    for(int i=0; i<size; i++){
+        res[--cou] = s[i];
+    }
+    res[size] = '\0'; 
+    return res;
 }
 int main(){
-    char s[] = "a good example";
-    char *result = reverseWords(s);
+    char s[] = "  hello  World ";
+    char *ree = removeSpaces(s);
+    char *result = reverseWords(ree);
     int size = strlen(result);
-    for (int i=size-1; i>=0; i--){
-        printf("%c ", result[i]);
-    }
+    printf("%s\n", result);
     return 0;
 }
