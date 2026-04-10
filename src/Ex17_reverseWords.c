@@ -5,21 +5,25 @@
 
 char *removeSpaces(char *s){
     int size = strlen(s);
-    char *spac  = (char*)malloc(sizeof(char)*size);
-    int count = 0;
-    for (int i=0; i<size; i++){
-        if (s[i] != ' '){
-            spac[count++] = s[i];
+    char *fir1 = s, *fir2 = s;
+    while(*fir1 != '\0'){
+        if(*fir1 == ' ' && (fir2 != s && *(fir2-1) != ' ' && fir1 != s+size-1)){
+            *(fir2++) = *(fir1);
         }
-        else if (s[i] == ' ' && (i != 0 && s[i-1] != ' ' && i != size - 1)){
-            spac[count++] = s[i];
+        else if(*fir1 != ' '){
+            *(fir2++) = *(fir1);
         }
+        fir1++;
     }
-    spac[count] = '\0';
-    return spac;
+    if (fir2 > s && *(fir2 - 1) == ' ') {
+        fir2--;
+    }
+    *fir2 = '\0';
+    return s;
 }
 
 char *reverseWords(char *s){
+    s = removeSpaces(s);
     char *fir1 = s;
     char *fir2 = s;
     bool con = true;
@@ -62,18 +66,18 @@ char *reverseWords(char *s){
         }
     }
     int size = strlen(s), cou = size;
-    char *res = (char*)malloc(size*sizeof(char));
+    char *res = (char*)malloc(size*sizeof(char)+1);
     for(int i=0; i<size; i++){
         res[--cou] = s[i];
     }
-    res[size] = '\0'; 
+    res[size] = '\0';
     return res;
 }
 int main(){
     char s[] = "  hello  World ";
-    char *ree = removeSpaces(s);
-    char *result = reverseWords(ree);
+    char *result = reverseWords(s);
     int size = strlen(result);
     printf("%s\n", result);
+    free(result);
     return 0;
 }
